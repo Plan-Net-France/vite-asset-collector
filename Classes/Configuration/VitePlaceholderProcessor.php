@@ -22,11 +22,16 @@ final class VitePlaceholderProcessor implements PlaceholderProcessorInterface
      * - %vite("path/to/file.css", "path/to/manifest.json")%
      */
     public const PLACEHOLDER_PATTERN = '^[\'"]?([^(]*?)[\'"]?(?:\s*,\s*[\'"]?([^(]*?)[\'"]?)?$';
+    private ExtensionConfiguration $extensionConfiguration;
+    private ViteService $viteService;
 
     public function __construct(
-        private readonly ExtensionConfiguration $extensionConfiguration,
-        private readonly ViteService $viteService
-    ) {}
+        ExtensionConfiguration $extensionConfiguration,
+        ViteService $viteService
+    ) {
+        $this->viteService = $viteService;
+        $this->extensionConfiguration = $extensionConfiguration;
+    }
 
     public function canProcess(string $placeholder, array $referenceArray): bool
     {
