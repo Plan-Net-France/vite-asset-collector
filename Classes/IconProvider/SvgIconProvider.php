@@ -14,10 +14,17 @@ use TYPO3\CMS\Core\Imaging\IconProvider\AbstractSvgIconProvider;
 
 class SvgIconProvider extends AbstractSvgIconProvider
 {
+
+    private ViteService $viteService;
+    private ExtensionConfiguration $extensionConfiguration;
+
     public function __construct(
-        private readonly ViteService $viteService,
-        private readonly ExtensionConfiguration $extensionConfiguration
-    ) {}
+        ViteService $viteService,
+        ExtensionConfiguration $extensionConfiguration
+    ) {
+        $this->extensionConfiguration = $extensionConfiguration;
+        $this->viteService = $viteService;
+    }
 
     /**
      * @throws \InvalidArgumentException|ViteException

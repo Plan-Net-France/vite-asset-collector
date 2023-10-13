@@ -17,12 +17,19 @@ use TYPO3\CMS\Core\Utility\PathUtility;
 class ViteService
 {
     public const DEFAULT_PORT = 5173;
+    protected AssetCollector $assetCollector;
+    protected PackageManager $packageManager;
+    private FrontendInterface $cache;
 
     public function __construct(
-        private readonly FrontendInterface $cache,
-        protected AssetCollector $assetCollector,
-        protected PackageManager $packageManager
-    ) {}
+        FrontendInterface $cache,
+        AssetCollector $assetCollector,
+        PackageManager $packageManager
+    ) {
+        $this->cache = $cache;
+        $this->packageManager = $packageManager;
+        $this->assetCollector = $assetCollector;
+    }
 
     public function determineDevServer(ServerRequestInterface $request): UriInterface
     {
